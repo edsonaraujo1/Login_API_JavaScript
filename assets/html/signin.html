@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="../css/signin.css" />
-    <title>Singin</title>
-  </head>
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>Pagina de Login</title>
+</head>
   <body>
     <div class="container">
       <div class="card">
@@ -19,8 +18,9 @@
         <div id="msgError"></div>
 
         <div class="label-float">
-          <input type="text" id="usuario" paceholder="" required />
-          <label id="userLabel" for="usuario">Usuario</label>
+            <input type="text" id="usuario" paceholder="" required />
+            <label id="userLabel" for="usuario">Usuario</label>
+            <i class="fa fa-user" aria-hidden="true"></i>
         </div>
 
         <div class="label-float">
@@ -30,7 +30,7 @@
         </div>
 
         <div class="justify-center">
-          <button onclick="entrar()">Entrar</button>
+          <button id="btn-Go">Entrar</button>
         </div>
 
         <div class="justify-center">

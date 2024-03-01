@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/flexbox.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>Home Flax</title>
+</head>
+<body>
+
+    <div class='wrapper'>
+        <div class='sidebar'>
+            <div class='title'>
+                Sidebar
+            </div>
+            <ul class='nav'>
+                <li>
+                    <a>Dashboard</a>
+                </li>
+                <li>
+                    <a>Statistics</a>
+                </li>
+                <li>
+                    <a class='active'>Milestones</a>
+                </li>
+                <li>
+                    <a>Experiments</a>
+                </li>
+                <li>
+                    <a>Previews</a>
+                </li>
+                <li>
+                    <a>Assets</a>
+                </li>
+                <li>
+                    <a>Settings</a>
+                </li>
+                <li>
+                    <a>Logout</a>
+                </li>
+            </ul>
+        </div>
+        <div class='content isOpen'>
+            <a class='button'></a>
+            <h1>Flexbox Off Canvas Menu</h1>
+            <h2>Lightweight, simple, easy to use</h2>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.button').on('click', function () {
+                $('.content').toggleClass('isOpen');
+            });
+        });
+    </script>
+</body>
+</html>

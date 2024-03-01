@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-  </head>
-  <body>
-    <h1 id="logado"></h1>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="./assets/css/home.css" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>Pagina Inicial</title>
+</head>
+<body>
 
-    <button onclick="sair()">Sair</button>
+    <nav id="slide-menu">
+        <ul>
+            <li class="timeline">Home</li>
+            <li class="events">Cadastro</li>
+            <li class="calendar">Calendario</li>
+            <li class="sep settings">Configuração</li>
+            <li class="logout" onclick="sair()">Sair</li>
+        </ul>
+    </nav>
 
+    <div id="content">
+        <div class="menu-trigger"></div>
+        <h1 id="logado"></h1>
+        <p>Esta é uma maneira fácil de criar um menu deslizante lateral com JS</p>
+    </div>
+    
     <script src="./assets/js/index.js"></script>
-  </body>
+</body>
 </html>

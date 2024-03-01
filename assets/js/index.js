@@ -3,13 +3,30 @@ if (localStorage.getItem("token") == null) {
     window.location.href = "./assets/html/signin.html";
 }
 
-const userLogado = JSON.parse(localStorage.getItem("userLogado"));
+const userLogado = localStorage.getItem("userLogado");
 
 const logado = document.querySelector("#logado");
-logado.innerHTML = `Olá ${userLogado.nome}`;
+logado.innerHTML = `Olá ${userLogado}`;
 
 function sair() {
+
+  localStorage.removeItem("usernome");
   localStorage.removeItem("token");
   localStorage.removeItem("userLogado");
   window.location.href = "./assets/html/signin.html";
 }
+
+/*
+  Slidemenu
+*/
+(function () {
+	var $body = document.body
+		, $menu_trigger = $body.getElementsByClassName('menu-trigger')[0];
+
+	if (typeof $menu_trigger !== 'undefined') {
+		$menu_trigger.addEventListener('click', function () {
+			$body.className = ($body.className == 'menu-active') ? '' : 'menu-active';
+		});
+	}
+
+}).call(this);

@@ -1,3 +1,5 @@
+const btnGo = document.getElementById('btn-Go')
+
 let btn = document.querySelector('.fa-eye')
 
 btn.addEventListener('click', ()=>{
@@ -10,7 +12,54 @@ btn.addEventListener('click', ()=>{
   }
 })
 
-function entrar(){
+const ObterTokenApi = (usuario, password) => {
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+        "Email": usuario.value,
+        "PasswordHash": password.value
+    });
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    const retorno = fetch("https://www.utyum.com.br/Seguro/Api/api/Auth", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+            return result;
+        })
+        .catch(error => console.log('error', error));
+
+    return retorno;
+
+}
+
+
+btnGo.addEventListener('click', async (event) => {
+    event.preventDefault();
+    let usuario = document.querySelector('#usuario')
+    let senha = document.querySelector('#senha')
+
+    const resulta = await ObterTokenApi(usuario, senha);
+    if (resulta != undefined) {
+        var UserFim = JSON.stringify(resulta.user).replace(/"/g, '');
+
+        localStorage.setItem('userLogado', JSON.stringify(resulta.nome).replace(/"/g, ''))
+        localStorage.setItem('token', JSON.stringify(resulta.token).replace(/"/g, ''))
+        localStorage.setItem('usernome', UserFim)
+    }
+    entrar(UserFim);
+
+});
+
+
+function entrar(value) {
   let usuario = document.querySelector('#usuario')
   let userLabel = document.querySelector('#userLabel')
   
@@ -18,6 +67,9 @@ function entrar(){
   let senhaLabel = document.querySelector('#senhaLabel')
   
   let msgError = document.querySelector('#msgError')
+
+  
+
   let listaUser = []
   
   let userValid = {
@@ -36,8 +88,8 @@ function entrar(){
 
                 userValid = {
                     nome: item.nomeCad,
-                    user: item.userCad,
-                    senha: item.senhaCad
+                    user: 'admin@net.com', //item.userCad,
+                    senha: '123456' // item.senhaCad
                 }
 
             }
@@ -45,38 +97,9 @@ function entrar(){
 
     }
 
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    var raw = JSON.stringify({
-        "Email": "admin@net.com",
-        "PasswordHash": "123456"
-    });
-
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-    };
-
-    fetch("https://www.utyum.com.br/Seguro/Api/api/Auth", requestOptions)
-        .then(response => response.json())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-
-    //console.log(response.text());
-
-
-
-  if(usuario.value == userValid.user && senha.value == userValid.senha){
+  if (usuario.value == value){
     window.location.href = '../../index.html'
     
-    let mathRandom = Math.random().toString(16).substr(2)
-    let token = mathRandom + mathRandom
-    
-    localStorage.setItem('token', token)
-    localStorage.setItem('userLogado', JSON.stringify(userValid))
   } else {
     userLabel.setAttribute('style', 'color: red')
     usuario.setAttribute('style', 'border-color: red')

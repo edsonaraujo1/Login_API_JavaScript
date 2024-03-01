@@ -1,6 +1,7 @@
+const btnGoReg = document.getElementById('btn-GoReg')
+
 let btn = document.querySelector('#verSenha')
 let btnConfirm = document.querySelector('#verConfirmSenha')
-
 
 let nome = document.querySelector('#nome')
 let labelNome = document.querySelector('#labelNome')
@@ -77,37 +78,88 @@ confirmSenha.addEventListener('keyup', () => {
   }
 })
 
-function cadastrar(){
-  if(validNome && validUsuario && validSenha && validConfirmSenha){
-    let listaUser = JSON.parse(localStorage.getItem('listaUser') || '[]')
-    
-    listaUser.push(
-    {
-      nomeCad: nome.value,
-      userCad: usuario.value,
-      senhaCad: senha.value
-    }
-    )
+const RegisterApi = (usuario) => {
 
-    localStorage.setItem('listaUser', JSON.stringify(listaUser))
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify(usuario);
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
     
-   
+    const retorno = fetch("https://www.utyum.com.br/Seguro/Api/api/Usuario/Register", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+            return result;
+        })
+        .catch(error => console.log('error', error));
+
+    return retorno;
+
+}
+
+btnGoReg.addEventListener('click', async (event) => {
+
     msgSuccess.setAttribute('style', 'display: block')
     msgSuccess.innerHTML = '<strong>Cadastrando usuário...</strong>'
     msgError.setAttribute('style', 'display: none')
     msgError.innerHTML = ''
-    
-    setTimeout(()=>{
-        window.location.href = '../html/signin.html'
-    }, 3000)
-  
-    
-  } else {
-    msgError.setAttribute('style', 'display: block')
-    msgError.innerHTML = '<strong>Preencha todos os campos corretamente antes de cadastrar</strong>'
-    msgSuccess.innerHTML = ''
-    msgSuccess.setAttribute('style', 'display: none')
-  }
+
+    event.preventDefault();
+
+    const form = {
+        NomeUsuario: nome.value,
+        Email: usuario.value,
+        PasswordHash: senha.value
+    }
+
+    const resulta = await RegisterApi(form);
+    if (resulta != undefined) {
+        var UserFim = JSON.stringify(resulta.statusCode).replace(/"/g, '');
+
+        if (UserFim == "OK") {
+            cadastrar();
+        } else {
+
+            msgError.setAttribute('style', 'display: block')
+            msgError.innerHTML = '<strong>Erro ao Cadastrar...</strong>'
+            msgSuccess.innerHTML = ''
+            msgSuccess.setAttribute('style', 'display: none')
+        }
+
+    } else {
+        msgError.setAttribute('style', 'display: block')
+        msgError.innerHTML = '<strong>Erro ao Cadastrar...</strong>'
+        msgSuccess.innerHTML = ''
+        msgSuccess.setAttribute('style', 'display: none')
+
+    }
+
+});
+
+function cadastrar(){
+    if (validNome && validUsuario && validSenha && validConfirmSenha) {
+
+        msgSuccess.setAttribute('style', 'display: block')
+        msgSuccess.innerHTML = '<strong>Cadastrado com Sucesso...</strong>'
+        msgError.setAttribute('style', 'display: none')
+        msgError.innerHTML = ''
+        
+        setTimeout(() => {
+            window.location.href = '../html/signin.html'
+        }, 3000)
+
+    } else {
+      msgError.setAttribute('style', 'display: block')
+      msgError.innerHTML = '<strong>Preencha todos os campos corretamente antes de cadastrar</strong>'
+      msgSuccess.innerHTML = ''
+      msgSuccess.setAttribute('style', 'display: none')
+    }
 }
 
 btn.addEventListener('click', ()=>{

@@ -102,6 +102,29 @@ button:hover{
   justify-content: center;
 }
 
+hr {
+    margin-top: 10%;
+    margin-bottom: 10%;
+    width: 60%;
+}
+
+p {
+    color: #272262;
+    font-size: 14pt;
+    text-align: center;
+}
+
+a {
+    color: #050671;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all .3s ease-out;
+}
+
+a:hover {
+    color: #fff;
+}
+
 .fa-eye{
   position: absolute;
   top: 15px;
@@ -110,13 +133,27 @@ button:hover{
   color: #0d009c;
 }
 
-#msgError{
-  text-align: center;
-  color: #ff0000;
-  background-color: #ffbbbb;
-  padding: 10px;
-  border-radius: 4px;
-  display: none;
+.fa-user {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    color: #0d009c;
+}
+
+.fa-envelope {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    color: #0d009c;
+}
+
+#msgError {
+    text-align: center;
+    color: #ff0000;
+    background-color: #ffbbbb;
+    padding: 10px;
+    border-radius: 4px;
+    display: none;
 }
 
 #msgSuccess{
