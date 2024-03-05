@@ -1,4 +1,5 @@
 const btnGoReg = document.getElementById('btn-GoReg')
+const btnGolimp = document.getElementById('btn-Golimp')
 
 let btn = document.querySelector('#verSenha')
 let btnConfirm = document.querySelector('#verConfirmSenha')
@@ -21,6 +22,25 @@ let validConfirmSenha = false
 
 let msgError = document.querySelector('#msgError')
 let msgSuccess = document.querySelector('#msgSuccess')
+
+
+btnGolimp.addEventListener('click', async (event) => {
+    document.getElementById('nome').value = '';
+    document.getElementById('usuario').value = '';
+    document.getElementById('senha').value = '';
+    document.getElementById('confirmSenha').value = '';
+    labelNome.setAttribute('style', 'color: #272262')
+    nome.setAttribute('style', 'border-color: #272262')
+    msgError.setAttribute('style', 'display: none')
+    msgError.innerHTML = ''
+    labelUsuario.setAttribute('style', 'color: #272262')
+    usuario.setAttribute('style', 'border-color: #272262')
+    labelSenha.setAttribute('style', 'color: #272262')
+    senha.setAttribute('style', 'border-color: #272262')
+    labelConfirmSenha.setAttribute('style', 'color: #272262')
+    confirmSenha.setAttribute('style', 'border-color: #272262')
+    usuario.focus()
+})
 
 nome.addEventListener('keyup', () => {
   if(nome.value.length <= 2){
@@ -91,7 +111,7 @@ const RegisterApi = (usuario) => {
         body: raw,
         redirect: 'follow'
     };
-    
+
     const retorno = fetch("https://www.utyum.com.br/Seguro/Api/api/Usuario/Register", requestOptions)
         .then((response) => response.json())
         .then((result) => {
@@ -104,6 +124,8 @@ const RegisterApi = (usuario) => {
 }
 
 btnGoReg.addEventListener('click', async (event) => {
+
+    showSpinner();
 
     msgSuccess.setAttribute('style', 'display: block')
     msgSuccess.innerHTML = '<strong>Cadastrando usuário...</strong>'
@@ -139,6 +161,9 @@ btnGoReg.addEventListener('click', async (event) => {
         msgSuccess.setAttribute('style', 'display: none')
 
     }
+    setTimeout(() => {
+        hideSpinner()
+    }, 1500);
 
 });
 
@@ -160,6 +185,10 @@ function cadastrar(){
       msgSuccess.innerHTML = ''
       msgSuccess.setAttribute('style', 'display: none')
     }
+    setTimeout(() => {
+        hideSpinner()
+    }, 1500);
+
 }
 
 btn.addEventListener('click', ()=>{
@@ -181,6 +210,22 @@ btnConfirm.addEventListener('click', ()=>{
     inputConfirmSenha.setAttribute('type', 'password')
   }
 })
+
+
+//Show spinner function
+const showSpinner = () => {
+    document.getElementById('btn-Golimp').style.dsplay = 'none'
+    document.getElementById('btnSubmitText').style.display = 'none'
+    document.querySelector('.fa-spinner').style.display = 'block'
+}
+
+//Hide spinner function
+const hideSpinner = () => {
+    document.getElementById('btn-Golimp').style.dsplay = 'block'
+    document.getElementById('btnSubmitText').style.display = 'block'
+    document.querySelector('.fa-spinner').style.display = 'none'
+}
+
 
 
 

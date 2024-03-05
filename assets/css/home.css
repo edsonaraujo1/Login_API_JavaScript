@@ -320,3 +320,13 @@ nav {
 #content {
 	overflow: hidden;
 }
+
+.stybtn {
+	margin-top: 2px;
+	margin-bottom: 2px;
+	margin-left: 10px
+}
+
+#data {
+background-color: #ffffff6e;
+}

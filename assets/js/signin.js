@@ -1,6 +1,19 @@
 const btnGo = document.getElementById('btn-Go')
+const btnGolimp = document.getElementById('btn-Golimp')
 
 let btn = document.querySelector('.fa-eye')
+
+btnGolimp.addEventListener('click', async (event) => {
+    document.getElementById('usuario').value = '';
+    document.getElementById('senha').value = '';
+    msgError.setAttribute('style', 'display: none')
+    msgError.innerHTML = ''
+    userLabel.setAttribute('style', 'color: #272262')
+    usuario.setAttribute('style', 'border-color: #272262')
+    senhaLabel.setAttribute('style', 'color: #272262')
+    senha.setAttribute('style', 'border-color: #272262')
+    usuario.focus()
+})
 
 btn.addEventListener('click', ()=>{
   let inputSenha = document.querySelector('#senha')
@@ -28,7 +41,7 @@ const ObterTokenApi = (usuario, password) => {
         body: raw,
         redirect: 'follow'
     };
-
+    
     const retorno = fetch("https://www.utyum.com.br/Seguro/Api/api/Auth", requestOptions)
         .then((response) => response.json())
         .then((result) => {
@@ -45,7 +58,7 @@ btnGo.addEventListener('click', async (event) => {
     event.preventDefault();
     let usuario = document.querySelector('#usuario')
     let senha = document.querySelector('#senha')
-
+    showSpinner();
     const resulta = await ObterTokenApi(usuario, senha);
     if (resulta != undefined) {
         var UserFim = JSON.stringify(resulta.user).replace(/"/g, '');
@@ -68,38 +81,10 @@ function entrar(value) {
   
   let msgError = document.querySelector('#msgError')
 
-  
-
-  let listaUser = []
-  
-  let userValid = {
-    nome: '',
-    user: '',
-    senha: ''
-  }
-
-  var ret = localStorage.getItem('listaUser')
-
-    if (ret != null) {
-        listaUser = JSON.parse(localStorage.getItem('listaUser'))
-
-        listaUser.forEach((item) => {
-            if (usuario.value == item.userCad && senha.value == item.senhaCad) {
-
-                userValid = {
-                    nome: item.nomeCad,
-                    user: 'admin@net.com', //item.userCad,
-                    senha: '123456' // item.senhaCad
-                }
-
-            }
-        })
-
-    }
 
   if (usuario.value == value){
     window.location.href = '../../index.html'
-    
+      
   } else {
     userLabel.setAttribute('style', 'color: red')
     usuario.setAttribute('style', 'border-color: red')
@@ -109,7 +94,22 @@ function entrar(value) {
     msgError.innerHTML = 'Usuário ou senha incorretos'
     usuario.focus()
   }
-  
+    setTimeout(() => {
+        hideSpinner()
+    }, 1500);
 }
 
+//Show spinner function
+const showSpinner = () => {
+    document.getElementById('btn-Golimp').style.dsplay = 'none'
+    document.getElementById('btnSubmitText').style.display = 'none'
+    document.querySelector('.fa-spinner').style.display = 'block'
+}
+
+//Hide spinner function
+const hideSpinner = () => {
+    document.getElementById('btn-Golimp').style.dsplay = 'block'
+    document.getElementById('btnSubmitText').style.display = 'block'
+    document.querySelector('.fa-spinner').style.display = 'none'
+}
 

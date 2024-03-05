@@ -15,7 +15,7 @@
     <nav id="slide-menu">
         <ul>
             <li class="timeline">Home</li>
-            <li class="events">Cadastro</li>
+            <li class="events" id="btn-Cad">Cadastro</li>
             <li class="calendar">Calendario</li>
             <li class="sep settings">Configuração</li>
             <li class="logout" onclick="sair()">Sair</li>
@@ -25,7 +25,14 @@
     <div id="content">
         <div class="menu-trigger"></div>
         <h1 id="logado"></h1>
-        <p>Esta é uma maneira fácil de criar um menu deslizante lateral com JS</p>
+        <p>
+            Esta é uma maneira fácil de criar um menu deslizante lateral<br />
+            e mostar uma lista dos dados de Usuarios com JS
+        </p>
+        <div id="contentl">
+            <table id="data" border="1" width="100%" style="background-color: #fff">
+            </table>
+        </div>
     </div>
     
     <script src="./assets/js/index.js"></script>
